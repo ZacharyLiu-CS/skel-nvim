@@ -3,13 +3,12 @@
 -- config = {
 --   filename  = <absolute path of buffer file>,
 --   author    = <name provided in 'author' in setup config>,
---   namespace = <ns provided in 'namespace' in setukp config>,
+--   email     = <email provided in "email" in setup config>,
 --   <inserts any user defined config in here>
 -- }
 
 local Utils = require("skel-nvim.utils")
 local M = {}
-
 
 function M.get_filename(cfg)
   return vim.fs.basename(cfg.filename)
@@ -31,6 +30,18 @@ function M.get_year(cfg)
   return os.date("%Y")
 end
 
+function M.get_repo_name(cfg)
+  local handle = io.popen("git remote get-url origin")
+  local result = handle:read("*a")
+  handle:close()
+  if result == nil then
+    return cfg.project_name
+  end
+  -- Extract the repo name
+  local repo_name = string.match(result, "/(.+).git")
+  return repo_name
+end
+
 -- cpp speficifics
 
 -- given filename: "test.h" -> "TEST_H"
@@ -48,13 +59,13 @@ end
 -- given filename: test.cpp, --> #include <testh.h>
 function M.get_headerinclude(cfg)
   local _, base, _ = Utils.get_basename_parts(cfg.filename)
-  return "#include <"..base..".h>"
+  return "<" .. base .. ".h>"
 end
 
 -- given filename: test.cpp, --> #include "testh.h"
 function M.get_headerinclude_quote(cfg)
   local _, base, _ = Utils.get_basename_parts(cfg.filename)
-  return '#include "'..base..'.h"'
+  return "'..base..'.h"
 end
 
 -- given filename: test.cpp -> Test
@@ -67,8 +78,8 @@ end
 function M.get_classname2(cfg)
   local _, base, _ = Utils.get_basename_parts(cfg.filename)
   if base:find("_") ~= nil then
-      -- strip all leading <word>_
-      base = base:match(".*_([^_]*)$")
+    -- strip all leading <word>_
+    base = base:match(".*_([^_]*)$")
   end
   return Utils.title_case(base)
 end
@@ -77,28 +88,22 @@ end
 -- namespace org {
 -- namespace app {
 function M.get_namespaceopen(cfg)
-  local ns = cfg.namespace
+  local ns = M.get_repo_name(cfg)
   local width = Utils.max_len(ns)
   local lines = {}
   for _, v in ipairs(ns) do
-    lines[#lines + 1] = string.format("namespace %-"..width.."s {",v)
+    lines[#lines + 1] = string.format("namespace %-" .. width .. "s {", v)
   end
   return lines
 end
 
--- given namespace: {"org", "app"}, yields
--- } // namespace app
--- } // namespace org
 function M.get_namespaceclose(cfg)
-  local ns = cfg.namespace
+  local ns = M.get_repo_name(cfg)
   local lines = {}
   for i = #ns, 1, -1 do
-    lines[#lines + 1] = string.format("} // namespace %s",ns[i])
+    lines[#lines + 1] = string.format("} // namespace %s", ns[i])
   end
   return lines
 end
-
-
-
 
 return M
