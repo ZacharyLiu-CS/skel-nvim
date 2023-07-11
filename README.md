@@ -104,8 +104,6 @@ require("skel-nvim").setup{
     ['CPP_TEST_HDR_GUARD']   = skeld.get_testheaderguard,
     ['CPP_HDR_INCLUDE']      = skeld.get_headerinclude,
     ['CLASS_NAME']           = skeld.get_classname2,
-    ['NAMESPACE_OPEN']       = skeld.get_namespaceopen,
-    ['NAMESPACE_CLOSE']      = skeld.get_namespaceclose,
   },
 
   -- Misc global config available to substitution callback functions
@@ -148,7 +146,6 @@ Here's an example template file for C++, more examples are referenced in [skelet
 #ifndef @CPP_HDR_GUARD@
 #define @CPP_HDR_GUARD@
 
-@NAMESPACE_OPEN@
 
 //------------------------------------------------------------------------------
 
@@ -165,7 +162,6 @@ private:
 
 //------------------------------------------------------------------------------
 
-@NAMESPACE_CLOSE@
 #endif /* @CPP_HDR_GUARD@ */
 ```
 

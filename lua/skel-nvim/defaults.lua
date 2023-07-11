@@ -30,18 +30,6 @@ function M.get_year(cfg)
 	return os.date("%Y")
 end
 
-function M.get_repo_name(cfg)
-	local handle = io.popen("git remote get-url origin")
-	local result = handle:read("*a")
-	handle:close()
-	if result == nil then
-		return cfg.project_name
-	end
-	-- Extract the repo name
-	local repo_name = string.match(result, "/(.+).git")
-	return repo_name
-end
-
 -- cpp speficifics
 
 -- given filename: "test.h" -> "TEST_H"
@@ -82,28 +70,6 @@ function M.get_classname2(cfg)
 		base = base:match(".*_([^_]*)$")
 	end
 	return Utils.title_case(base)
-end
-
--- given namespace: {"org", "app"}, yields
--- namespace org {
--- namespace app {
-function M.get_namespaceopen(cfg)
-	local ns = M.get_repo_name(cfg)
-	local width = Utils.max_len(ns)
-	local lines = {}
-	for _, v in ipairs(ns) do
-		lines[#lines + 1] = string.format("namespace %-" .. width .. "s {", v)
-	end
-	return lines
-end
-
-function M.get_namespaceclose(cfg)
-	local ns = M.get_repo_name(cfg)
-	local lines = {}
-	for i = #ns, 1, -1 do
-		lines[#lines + 1] = string.format("} // namespace %s", ns[i])
-	end
-	return lines
 end
 
 return M
