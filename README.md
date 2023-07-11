@@ -87,6 +87,7 @@ require("skel-nvim").setup{
     ['NAME']                 = skeld.get_author,
     ['EMAIL']                = skeld.get_email,
     ['DATE']                 = skeld.get_date,
+    ['YEAR']                 = skeld.get_year,
     ['CPP_HDR_GUARD']        = skeld.get_cppheaderguard,
     ['CPP_TEST_HDR_GUARD']   = skeld.get_testheaderguard,
     ['CPP_HDR_INCLUDE']      = skeld.get_headerinclude,
@@ -138,7 +139,7 @@ Projects are determined by `path`, that is
 ### Templates
 By default, templates are expected to be found under ~/.config/nvim/skeleton/ folder.  
 Placeholder variables need to be surrounded by '@', i.e. @FILENAME@  
-Here's an example template file for C++,
+Here's an example template file for C++, more examples are referenced in [skeletons](https://github.com/ZacharyLiu-CS/neovim_luafiles/tree/master/skeletons)
 ```cpp
 //
 //  @FILENAME@ 
