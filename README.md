@@ -18,14 +18,19 @@ A skeleton plugin for nvim inspired by [vim-skeleton](https://github.com/noahfre
 Using [plug](https://github.com/junegunn/vim-plug):
 
 ```vim
-Plug 'motosir/skel-nvim'
+Plug 'zacharyliu-cs/skel-nvim'
 ```
 
 Using [packer](https://github.com/wbthomason/packer.nvim):
 
 ```lua
-use "motosir/skel-nvim"
+use "zacharyliu-cs/skel-nvim"
 ```
+Using [lazy](https://github.com/folke/lazy.nvim)
+```lua
+"zacharyliu-cs/skel-nvim"
+```
+
 ## Configuration
 basic config
 ```lua
@@ -80,6 +85,7 @@ require("skel-nvim").setup{
   substitutions = {
     ['FILENAME']             = skeld.get_filename,
     ['NAME']                 = skeld.get_author,
+    ['EMAIL']                = skeld.get_email,
     ['DATE']                 = skeld.get_date,
     ['CPP_HDR_GUARD']        = skeld.get_cppheaderguard,
     ['CPP_TEST_HDR_GUARD']   = skeld.get_testheaderguard,
@@ -91,6 +97,7 @@ require("skel-nvim").setup{
 
   -- Misc global config available to substitution callback functions
   author = "MyName",
+  email = "MyEmail@mail.com",
   namespace =  {"MyOrg", "MyApp"},
   -- Supports user varaibles too
   my_user_variable = "my_user_value",
@@ -133,14 +140,14 @@ By default, templates are expected to be found under ~/.config/nvim/skeleton/ fo
 Placeholder variables need to be surrounded by '@', i.e. @FILENAME@  
 Here's an example template file for C++,
 ```cpp
-////////////////////////////////////////////////////////////////////////////////
-// File:        @FILENAME@
-// Author:      @NAME@
-// Description:       
-////////////////////////////////////////////////////////////////////////////////
+//
+//  @FILENAME@ 
+//
+//  Created by @NAME@ on @DATE@.
+//  Copyright (c) @YEAR@ @EMAIL@.
+//
 #ifndef @CPP_HDR_GUARD@
 #define @CPP_HDR_GUARD@
-////////////////////////////////////////////////////////////////////////////////
 
 @NAMESPACE_OPEN@
 

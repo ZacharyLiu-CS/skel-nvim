@@ -19,8 +19,16 @@ function M.get_author(cfg)
   return cfg.author
 end
 
+function M.get_email(cfg)
+  return cfg.email
+end
+
 function M.get_date(cfg)
   return os.date("%x")
+end
+
+function M.get_year(cfg)
+  return os.date("%Y")
 end
 
 -- cpp speficifics
