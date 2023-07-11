@@ -111,24 +111,10 @@ require("skel-nvim").setup{
   -- Misc global config available to substitution callback functions
   author = "MyName",
   email = "MyEmail@mail.com",
-  namespace =  {"MyOrg", "MyApp"},
   -- Supports user varaibles too
   my_user_variable = "my_user_value",
 
-  -- per project overrides (default = {})
-  projects = {
-    project1 = {
-      path = "/home/<user>/dev/proj1", -- absolute path for project1
-      namespace = {"MyOrg", "Proj1"},  -- override namespace to use in1
-      author    = "my project1 name"   -- override author only in project1
-    },
-    project2 = {
-      path = "/home/<user>/dev/proj2", -- absolute path for project2
-      namespace = {"MyOrg", "Proj2"},   -- override namespace to use in1
-      my_user_variable = "I need different value in project2"
-    }
   }
-}
 ```
 Here we have a gobal config and 2 project overrides where some configurations are overriden.
 Projects are determined by `path`, that is 
@@ -189,7 +175,7 @@ placeholder callback functions are called with single `table` argument
 config = {
   filename  = <absolute path of buffer file>,
   author    = <name provided in 'author' in setup config>,
-  namespace = <ns provided in 'namespace' in setukp config>,
+  email     = <email provided in 'email' in setukp config>,
   <user defined values>
 }
 
