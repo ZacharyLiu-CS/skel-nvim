@@ -13,7 +13,17 @@ A skeleton plugin for nvim inspired by [vim-skeleton](https://github.com/noahfre
 * Can replace placeholder tokens in templates with either configurable strings or dynamic population using lua functions
 * Supports concept of global/per-project config and templates.
 
+## Preinstallion
+Recommand UI section library to replace native ui.
+Dressing is tested, telescope-ui-select has bugs.
 
+Using [lazy](https://github.com/folke/lazy.nvim):
+```lua
+{
+  'stevearc/dressing.nvim',
+  opts = {},
+}
+```
 ## Installation
 Using [plug](https://github.com/junegunn/vim-plug):
 
@@ -67,16 +77,18 @@ require("skel-nvim").setup{
 
   -- file pattern -> template mappings (default)
   mappings = {
-    ['main.cpp'] = "main.cpp.skel",
-    ['*.cpp'] = "cpp.skel",
-    ['*.h'] = "h.skel",
-    ['*.t.cpp'] = "utest.cpp.skel",
-    ['main.c'] = "main.c.skel",
-    ['*.c'] = "c.skel",
-    ["*.go"] = "go.skel",
-    ['*.py'] = "py.skel",
-    ['*.lua'] = "lua.skel",
-    ['*.sh'] = "sh.skel"
+		["LICENSE"] = { "BSD_3Clause.license", "GNU_GPLv3.license", "MIT.license"},
+		["*.cpp"] = "skel.cc",
+		["*.cc"] = "skel.cc",
+		["*.hpp"] = "skel.h",
+		["*.h"] = "skel.h",
+		["*.hh"] = "skel.h",
+    ["*.go"] = "skel.go",
+		["*.c"] = "skel.c",
+		["*.py"] = "skel.py",
+		["*.rs"] = "skel.rs",
+		["*.lua"] = "skel.lua",
+		["*.sh"] = "skel.sh",
   },
 
   -- substitutions in templates (default)
